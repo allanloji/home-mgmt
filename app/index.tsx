@@ -18,6 +18,8 @@ export default function HomeScreen() {
     ...queries.notes.list({ category: NoteCategory.Normal }),
   });
 
+  console.log({ importantNotes, notes });
+
   return (
     <S.Container>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -43,7 +45,7 @@ export default function HomeScreen() {
 
       <FlatList
         data={notes}
-        renderItem={({ item }) => <Note key={item.id} />}
+        renderItem={({ item }) => <Note key={item.id} note={item} />}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <Spacer size="16px" />}
         ListFooterComponent={() => <Spacer size="40px" />}

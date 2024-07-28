@@ -10,13 +10,13 @@ export type NoteFilter = {
 export type Note = {
   id: string;
   title: string;
-  description: string;
+  content: string;
   isImportant: boolean;
   date: string;
 };
 
 export type NoteDTO = {
   title: string;
-  description: string;
+  content: string;
   isImportant: boolean;
 };

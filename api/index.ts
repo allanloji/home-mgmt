@@ -38,7 +38,7 @@ export const api = {
       return notes.find((note) => note.id === id) || null;
     },
     create: async (
-      note: Partial<Pick<Note, "description" | "title" | "isImportant">>
+      note: Partial<Pick<Note, "content" | "title" | "isImportant">>
     ) => {
       const res = await AsyncStorage.getItem("notes");
       const notes: Note[] = res !== null ? JSON.parse(res) : [];
@@ -46,6 +46,18 @@ export const api = {
       const date = new Date().toISOString();
       notes.push({ ...note, id, date } as Note);
       await AsyncStorage.setItem("notes", JSON.stringify(notes));
+    },
+    update: async (
+      note: Partial<Pick<Note, "id" | "content" | "title" | "isImportant">>
+    ) => {
+      const res = await AsyncStorage.getItem("notes");
+      const notes: Note[] = res !== null ? JSON.parse(res) : [];
+      const { id } = note;
+
+      const newNotes = notes.filter((note) => note.id !== id);
+      newNotes.push({ ...note, id } as Note);
+      console.log(newNotes);
+      await AsyncStorage.setItem("notes", JSON.stringify(newNotes));
     },
     delete: async (id: string) => {
       const res = await AsyncStorage.getItem("notes");
