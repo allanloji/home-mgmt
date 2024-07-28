@@ -1,10 +1,22 @@
 import { Note, NoteCard, Spacer, Subtitle, Title } from "@/components";
-import { FlatList, ScrollView, View } from "react-native";
+import * as S from "@/components/Dashboard/Dashboard.styles";
+import { Button } from "@/components/ui";
+import { Link } from "expo-router";
+import { FlatList, View, Text } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <View style={{ padding: 16, flex: 1 }}>
-      <Subtitle>Hello!</Subtitle>
+    <S.Container>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Subtitle>Hello! 🌞 </Subtitle>
+        <Link href="/notes/new" asChild>
+          <Button>
+            <Text style={{ color: "#fff", lineHeight: 24, fontSize: 20 }}>
+              +
+            </Text>
+          </Button>
+        </Link>
+      </View>
       <Title>Your Notes</Title>
       <View style={{ width: "100%" }}>
         <FlatList
@@ -36,6 +48,6 @@ export default function HomeScreen() {
         ItemSeparatorComponent={() => <Spacer size="16px" />}
         ListFooterComponent={() => <Spacer size="40px" />}
       />
-    </View>
+    </S.Container>
   );
 }
