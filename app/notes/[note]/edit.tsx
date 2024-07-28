@@ -6,7 +6,7 @@ import { Spacer, Title } from "@/components";
 import * as S from "@/components/NewNote/NewNote.styles";
 import { Button, TextInput, Switch } from "@/components/ui";
 
-function NewNotePage() {
+function EditNotePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isImportant, setIsImportant] = useState(false);
@@ -22,7 +22,7 @@ function NewNotePage() {
           </Button>
         </Link>
       </View>
-      <Title>New note</Title>
+      <Title>Edit note</Title>
       <Spacer size="16px" />
       <TextInput
         placeholder="Title"
@@ -52,4 +52,4 @@ function NewNotePage() {
   );
 }
 
-export default NewNotePage;
+export default EditNotePage;
