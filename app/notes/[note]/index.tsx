@@ -1,19 +1,51 @@
-import { Link, useLocalSearchParams } from "expo-router";
-import { View, Text } from "react-native";
+import { Link, router, useLocalSearchParams } from "expo-router";
+import { View, Text, Alert, Pressable } from "react-native";
 
 import { Spacer } from "@/components";
 import * as S from "@/components/NoteDetail/NoteDetail.styles";
 
 import { Button } from "@/components/ui";
-import { useQuery } from "@tanstack/react-query";
-import { queries } from "@/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api, queries } from "@/api";
 
 function NotePage() {
+  const queryClient = useQueryClient();
+
   const { note } = useLocalSearchParams<{ note: string }>();
   const { data: noteData, isLoading: isLoadingNote } = useQuery({
     ...queries.notes.detail(note || ""),
     enabled: !!note,
   });
+  const { mutate: deleteNote } = useMutation({
+    mutationFn: api.notes.delete,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queries.notes._def,
+      });
+      router.replace("/");
+    },
+  });
+
+  const onDelete = () => {
+    Alert.alert(
+      "Confirm deletion of note",
+      "We will delete the selected note",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            if (noteData?.id) {
+              deleteNote(noteData.id);
+            }
+          },
+        },
+      ]
+    );
+  };
 
   return (
     <S.Container id={note || ""}>
@@ -41,9 +73,9 @@ function NotePage() {
             <Text style={{ lineHeight: 24, fontSize: 20 }}>Edit</Text>
           </Link>
           <Spacer horizontal size="16px" />
-          <Link href="/">
+          <Pressable onPress={onDelete}>
             <Text style={{ lineHeight: 24, fontSize: 20 }}>Delete</Text>
-          </Link>
+          </Pressable>
         </View>
       </View>
       <S.Title>{noteData?.title}</S.Title>

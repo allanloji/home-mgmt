@@ -5,16 +5,21 @@ import { View, Text } from "react-native";
 import { Spacer, Title } from "@/components";
 import * as S from "@/components/NewNote/NewNote.styles";
 import { Button, TextInput, Switch } from "@/components/ui";
-import { useMutation } from "@tanstack/react-query";
-import { api } from "@/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { api, queries } from "@/api";
 
 function NewNotePage() {
+  const queryClient = useQueryClient();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isImportant, setIsImportant] = useState(false);
-  const { mutate: createNote } = useMutation({
+  const { mutate: createNote, isPending } = useMutation({
     mutationFn: api.notes.create,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queries.notes._def,
+      });
       router.replace("/");
     },
   });
@@ -60,7 +65,7 @@ function NewNotePage() {
         label="Is important?"
       />
       <Spacer size="16px" />
-      <Button onPress={onSubmit}>
+      <Button onPress={onSubmit} disabled={isPending}>
         <Text style={{ color: "#fff", lineHeight: 24, fontSize: 16 }}>
           Create
         </Text>

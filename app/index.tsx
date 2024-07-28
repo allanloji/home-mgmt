@@ -18,8 +18,6 @@ export default function HomeScreen() {
     ...queries.notes.list({ category: NoteCategory.Normal }),
   });
 
-  console.log({ importantNotes, notes });
-
   return (
     <S.Container>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -33,23 +31,27 @@ export default function HomeScreen() {
         </Link>
       </View>
       <Title>Your Notes</Title>
-      <View style={{ width: "100%" }}>
-        <FlatList
-          data={importantNotes}
-          horizontal
-          renderItem={({ item }) => <NoteCard key={item.id} note={item} />}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={() => <Spacer horizontal size="16px" />}
-        />
-      </View>
+      {!isLoadingImportantNotes ? (
+        <View style={{ width: "100%" }}>
+          <FlatList
+            data={importantNotes}
+            horizontal
+            renderItem={({ item }) => <NoteCard key={item.id} note={item} />}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <Spacer horizontal size="16px" />}
+          />
+        </View>
+      ) : null}
 
-      <FlatList
-        data={notes}
-        renderItem={({ item }) => <Note key={item.id} note={item} />}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <Spacer size="16px" />}
-        ListFooterComponent={() => <Spacer size="40px" />}
-      />
+      {!isLoadingNotes ? (
+        <FlatList
+          data={notes}
+          renderItem={({ item }) => <Note key={item.id} note={item} />}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={() => <Spacer size="16px" />}
+          ListFooterComponent={() => <Spacer size="40px" />}
+        />
+      ) : null}
     </S.Container>
   );
 }

@@ -5,23 +5,27 @@ import { View, Text } from "react-native";
 import { Spacer, Title } from "@/components";
 import * as S from "@/components/NewNote/NewNote.styles";
 import { Button, TextInput, Switch } from "@/components/ui";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, queries } from "@/api";
 
 function EditNotePage() {
+  const queryClient = useQueryClient();
   const { note } = useLocalSearchParams<{ note: string }>();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isImportant, setIsImportant] = useState(false);
 
-  const { data: noteData, isLoading: isLoadingNote } = useQuery({
+  const { data: noteData } = useQuery({
     ...queries.notes.detail(note || ""),
     enabled: !!note,
   });
-  const { mutate: editNote } = useMutation({
+  const { mutate: editNote, isPending } = useMutation({
     mutationFn: api.notes.update,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: queries.notes._def,
+      });
       router.back();
     },
   });
@@ -36,6 +40,7 @@ function EditNotePage() {
 
   const onSubmit = () => {
     const note = {
+      id: noteData?.id,
       title,
       content,
       isImportant,
@@ -81,7 +86,7 @@ function EditNotePage() {
         label="Is important?"
       />
       <Spacer size="16px" />
-      <Button onPress={onSubmit}>
+      <Button onPress={onSubmit} disabled={isPending}>
         <Text style={{ color: "#fff", lineHeight: 24, fontSize: 16 }}>
           Save
         </Text>
