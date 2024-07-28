@@ -1,10 +1,23 @@
+import { queries } from "@/api";
+import { NoteCategory } from "@/api/types";
 import { Note, NoteCard, Spacer, Subtitle, Title } from "@/components";
 import * as S from "@/components/Dashboard/Dashboard.styles";
 import { Button } from "@/components/ui";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { FlatList, View, Text } from "react-native";
 
 export default function HomeScreen() {
+  const { data: importantNotes, isLoading: isLoadingImportantNotes } = useQuery(
+    {
+      ...queries.notes.list({ category: NoteCategory.Important }),
+    }
+  );
+
+  const { data: notes, isLoading: isLoadingNotes } = useQuery({
+    ...queries.notes.list({ category: NoteCategory.Normal }),
+  });
+
   return (
     <S.Container>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -20,11 +33,7 @@ export default function HomeScreen() {
       <Title>Your Notes</Title>
       <View style={{ width: "100%" }}>
         <FlatList
-          data={[
-            { id: "c1855081-193e-4084-973b-c606c6c02bd1" },
-            { id: "312da2ea-005d-4014-89e2-fe8b7e204bf0" },
-            { id: "157bbf17-d050-4ceb-bf31-219d699dbc1e" },
-          ]}
+          data={importantNotes}
           horizontal
           renderItem={({ item }) => <NoteCard key={item.id} note={item} />}
           keyExtractor={(item) => item.id}
@@ -33,16 +42,7 @@ export default function HomeScreen() {
       </View>
 
       <FlatList
-        data={[
-          { id: "c1855081-193e-4084-973b-c606c6c02bd1" },
-          { id: "312da2ea-005d-4014-89e2-fe8b7e204bf0" },
-          { id: "157bbf17-d050-4ceb-bf31-219d699dbc1e" },
-          { id: "da92a591-86b1-48ce-999f-c1c447c0e3e1" },
-          { id: "c1855081-193e-4084-973b-c606c6c02bd1" },
-          { id: "312da2ea-005d-4014-89e2-fe8b7e204bf0" },
-          { id: "157bbf17-d050-4ceb-bf31-219d699dbc1e" },
-          { id: "da92a591-86b1-48ce-999f-c1c447c0e3e1" },
-        ]}
+        data={notes}
         renderItem={({ item }) => <Note key={item.id} />}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <Spacer size="16px" />}
