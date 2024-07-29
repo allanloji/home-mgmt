@@ -85,7 +85,7 @@ function EditNotePage() {
         label="Is important?"
       />
       <Spacer size="16px" />
-      <Button onPress={onSubmit} disabled={isPending}>
+      <Button onPress={onSubmit} disabled={isPending || title === ""}>
         <Text style={{ color: "#fff", lineHeight: 24, fontSize: 16 }}>
           Save
         </Text>
