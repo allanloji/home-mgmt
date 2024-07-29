@@ -1,50 +1,40 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# NoteApp
 
-## Get started
+Simple Note app made in React Native
+## Features
 
-1. Install dependencies
+- User can create, edit, delete notes
+- User can list and categorize important notes
 
-   ```bash
-   npm install
-   ```
 
-2. Start the app
+## Tech Stack
+React-Native, Expo, Tanstack Query, Styled Components, Vitest, Maestro
 
-   ```bash
-    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Installation
+1. Install dependecies with yarn
 
 ```bash
-npm run reset-project
+    yarn
 ```
+2. start expo project
+```bash
+    yarn start
+```
+3. Scan the QR on a device using ExpoGo App
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-## Learn more
+## Running Tests
 
-To learn more about developing your project with Expo, look at the following resources:
+### Unit tests
+To run the unit tests, run the following command on the main folder
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+  yarn test
+```
+### E2E
+To run e2e tests run the following command on the main folder
+```bash
+    maestro test e2e
+```
