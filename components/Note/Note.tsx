@@ -1,8 +1,8 @@
-import * as S from "./Note.styles";
-import { Text } from "react-native";
-import { Note as NoteAPI } from "../../api/types";
-import { Spacer } from "../Spacer";
 import { Link } from "expo-router";
+
+import * as S from "./Note.styles";
+import { Note as NoteAPI } from "../../api/types";
+import { Spacer } from "../ui/Spacer";
 
 interface NoteProps {
   note: NoteAPI;

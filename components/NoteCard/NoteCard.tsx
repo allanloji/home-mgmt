@@ -1,6 +1,6 @@
 import { Note } from "@/api/types";
 import * as S from "./NoteCard.styles";
-import { Spacer } from "../Spacer";
+import { Spacer } from "../ui/Spacer";
 import { Link } from "expo-router";
 
 interface NoteCardProps {

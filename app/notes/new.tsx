@@ -2,9 +2,8 @@ import { Link, router } from "expo-router";
 import { useState } from "react";
 import { View, Text } from "react-native";
 
-import { Spacer, Title } from "@/components";
 import * as S from "@/components/NewNote/NewNote.styles";
-import { Button, TextInput, Switch } from "@/components/ui";
+import { Button, TextInput, Switch, Spacer, Title } from "@/components/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, queries } from "@/api";
 

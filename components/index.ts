@@ -1,5 +1,3 @@
-export { Subtitle } from "./Subtitle";
-export { Title } from "./Title";
 export { NoteCard } from "./NoteCard";
-export { Spacer } from "./Spacer";
+export { Spacer } from "./ui/Spacer";
 export { Note } from "./Note";

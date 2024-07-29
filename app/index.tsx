@@ -1,8 +1,8 @@
 import { queries } from "@/api";
 import { NoteCategory } from "@/api/types";
-import { Note, NoteCard, Spacer, Subtitle, Title } from "@/components";
+import { Note, NoteCard, Spacer } from "@/components";
 import * as S from "@/components/Dashboard/Dashboard.styles";
-import { Button } from "@/components/ui";
+import { Button, Subtitle, Title } from "@/components/ui";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
 import { FlatList, View, Text } from "react-native";

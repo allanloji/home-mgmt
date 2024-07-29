@@ -14,9 +14,3 @@ export type Note = {
   isImportant: boolean;
   date: string;
 };
-
-export type NoteDTO = {
-  title: string;
-  content: string;
-  isImportant: boolean;
-};
