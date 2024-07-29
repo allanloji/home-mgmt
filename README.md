@@ -7,6 +7,8 @@ Simple Note app made in React Native
 - User can create, edit, delete notes
 - User can list and categorize important notes
 
+## Demo
+<img src=https://github.com/user-attachments/assets/67a2035f-ea53-4462-920d-84355e932776 width=200 />
 
 ## Tech Stack
 React-Native, Expo, Tanstack Query, Styled Components, Vitest, Maestro
