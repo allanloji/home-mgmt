@@ -1,6 +1,6 @@
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { View, Text, Alert, Pressable } from "react-native";
-
+import { format } from "@formkit/tempo";
 import { Spacer } from "@/components";
 import * as S from "@/components/NoteDetail/NoteDetail.styles";
 
@@ -12,7 +12,7 @@ function NotePage() {
   const queryClient = useQueryClient();
 
   const { note } = useLocalSearchParams<{ note: string }>();
-  const { data: noteData, isLoading: isLoadingNote } = useQuery({
+  const { data: noteData, isLoading: isLoadingNoteData } = useQuery({
     ...queries.notes.detail(note || ""),
     enabled: !!note,
   });
@@ -78,9 +78,14 @@ function NotePage() {
           </Pressable>
         </View>
       </View>
-      <S.Title>{noteData?.title}</S.Title>
-      <Spacer size="16px" />
-      <S.Content>{noteData?.content}</S.Content>
+      {isLoadingNoteData || !noteData ? null : (
+        <>
+          <S.Title>{noteData.title}</S.Title>
+          <S.Subtitle>{format(noteData.date, "long")}</S.Subtitle>
+          <Spacer size="16px" />
+          <S.Content>{noteData.content}</S.Content>
+        </>
+      )}
     </S.Container>
   );
 }

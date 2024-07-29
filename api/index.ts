@@ -56,7 +56,6 @@ export const api = {
 
       const newNotes = notes.filter((note) => note.id !== id);
       newNotes.push({ ...note, id } as Note);
-      console.log(newNotes);
       await AsyncStorage.setItem("notes", JSON.stringify(newNotes));
     },
     delete: async (id: string) => {

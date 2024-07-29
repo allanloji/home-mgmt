@@ -15,3 +15,7 @@ export const Title = styled.Text`
 export const Content = styled.Text`
   font-size: 24px;
 `;
+
+export const Subtitle = styled.Text`
+  font-size: 16px;
+`;
