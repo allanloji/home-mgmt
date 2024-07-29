@@ -15,7 +15,7 @@ React-Native, Expo, Tanstack Query, Styled Components, Vitest, Maestro
 
 
 ## Installation
-1. Install dependecies with yarn
+1. Install dependecies with yarn (you should have [expo cli](https://docs.expo.dev/more/expo-cli/) installed)
 
 ```bash
     yarn
@@ -36,7 +36,7 @@ To run the unit tests, run the following command on the main folder
   yarn test
 ```
 ### E2E
-To run e2e tests run the following command on the main folder
+To run e2e tests run the following command on the main folder (you should have [maestro](https://maestro.mobile.dev/) installed)
 ```bash
     maestro test e2e
 ```
