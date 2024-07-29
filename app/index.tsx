@@ -18,6 +18,11 @@ export default function HomeScreen() {
     ...queries.notes.list({ category: NoteCategory.Normal }),
   });
 
+  const hasNotes =
+    !isLoadingImportantNotes &&
+    !isLoadingNotes &&
+    ((importantNotes?.length || 0) > 0 || (notes?.length || 0) > 0);
+
   return (
     <S.Container>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -31,27 +36,29 @@ export default function HomeScreen() {
         </Link>
       </View>
       <Title>Your Notes</Title>
-      {!isLoadingImportantNotes ? (
-        <View style={{ width: "100%" }}>
-          <FlatList
-            data={importantNotes}
-            horizontal
-            renderItem={({ item }) => <NoteCard key={item.id} note={item} />}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <Spacer horizontal size="16px" />}
-          />
-        </View>
-      ) : null}
+      {hasNotes ? (
+        <>
+          <View style={{ width: "100%" }}>
+            <FlatList
+              data={importantNotes}
+              horizontal
+              renderItem={({ item }) => <NoteCard key={item.id} note={item} />}
+              keyExtractor={(item) => item.id}
+              ItemSeparatorComponent={() => <Spacer horizontal size="16px" />}
+            />
+          </View>
 
-      {!isLoadingNotes ? (
-        <FlatList
-          data={notes}
-          renderItem={({ item }) => <Note key={item.id} note={item} />}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={() => <Spacer size="16px" />}
-          ListFooterComponent={() => <Spacer size="40px" />}
-        />
-      ) : null}
+          <FlatList
+            data={notes}
+            renderItem={({ item }) => <Note key={item.id} note={item} />}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={() => <Spacer size="16px" />}
+            ListFooterComponent={() => <Spacer size="40px" />}
+          />
+        </>
+      ) : (
+        <Subtitle>It looks like you don't have notes 😯 </Subtitle>
+      )}
     </S.Container>
   );
 }
